@@ -10,7 +10,8 @@ function Profile({ rsvpEvents }) {
 
   const fetchCreatedEvents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/events");
+      id="kz0l6f"
+const res = await axios.get("https://localvibe-backend-gcdd.onrender.com/api/events");
       setCreatedEvents(res.data);
     } catch (err) {
       console.log(err);

@@ -22,7 +22,7 @@ useEffect(() => {
 
 const fetchEvents = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/events");
+    const res = await axios.get("https://localvibe-backend-gcdd.onrender.com/api/events");
     setDbEvents(res.data);
   } catch (err) {
     console.log(err);

@@ -1,11 +1,12 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -15,6 +16,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
+
+function ChangeMapView({ center }) {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(center, 13);
+  }, [center, map]);
+
+  return null;
+}
 function MapView() {
 
   const [userLocation, setUserLocation] = useState(null);
@@ -31,6 +42,10 @@ function MapView() {
           position.coords.latitude,
           position.coords.longitude,
         ]);
+        alert(
+  `Latitude: ${position.coords.latitude}
+Longitude: ${position.coords.longitude}`
+);
       },
       () => {
         alert("Location access denied!");
@@ -64,13 +79,16 @@ function MapView() {
 
       <h2>Event Locations</h2>
 
+      
       <button onClick={findMe}>
-        📍 Find Near Me
-      </button>
+  📍 Find Near Me
+</button>
+
+<p>{userLocation ? "Location Found ✅" : "Location Not Found ❌"}</p>
 
 
       <MapContainer
-        center={[19.0760, 73.0]}
+        center={userLocation || [19.0760, 73.0]}
         zoom={5}
         style={{ height: "500px", width: "100%" }}
       >
@@ -79,6 +97,7 @@ function MapView() {
           attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {userLocation && <ChangeMapView center={userLocation} />}
 
 
         {events.map((event, index) => (
@@ -88,6 +107,7 @@ function MapView() {
             </Popup>
           </Marker>
         ))}
+        {console.log(userLocation)}
 
 
         {userLocation && (

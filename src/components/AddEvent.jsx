@@ -15,7 +15,7 @@ function AddEvent({ addEvent }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/events",
+        "https://localvibe-backend-gcdd.onrender.com/api/events",
         {
           title: eventName,
           category: category.toLowerCase(),

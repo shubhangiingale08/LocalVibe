@@ -25,7 +25,7 @@ function App() {
 
   const deleteEvent = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/api/events/${id}`);
+    await axios.delete(`https://localvibe-backend-gcdd.onrender.com/api/events/${id}`);
 
     setNewEvents(
       newEvents.filter((event) => event._id !== id && event.id !== id)
